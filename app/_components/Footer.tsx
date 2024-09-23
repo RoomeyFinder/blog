@@ -30,35 +30,43 @@ export default function Footer() {
       </div>
 
       <ul className="flex items-center justify-start gap-3">
-        <Link
-          href="https://x.com/roomeyfinder"
-          target="_blank"
-          className="cursor-pointer w-[20px] h-[20px] flex items-center justify-center"
-        >
-          <XIcon />
-        </Link>
-        <Link
-          href="https://instagram.com/roomeyfinder"
-          target="_blank"
-          className="cursor-pointer w-[20px] h-[20px] flex items-center justify-center"
-        >
-          <InstagramIcon />
-        </Link>
-        <Link
-          href="https://www.linkedin.com/company/roomeyfinder"
-          target="_blank"
-          className="cursor-pointer w-[20px] h-[20px] flex items-center justify-center"
-        >
-          <LinkedInIcon />
-        </Link>
-        <Link
-          href="https://web.facebook.com/profile.php?id=61558566416460"
-          target="_blank"
-          className="cursor-pointer w-[20px] h-[20px] flex items-center justify-center"
-        >
-          <FacebookIcon />
-        </Link>
+        <Socials />
       </ul>
     </footer>
+  )
+}
+
+export function Socials() {
+  return (
+    <>
+      <Link
+        href="https://x.com/roomeyfinder"
+        target="_blank"
+        className="cursor-pointer w-[20px] h-[20px] flex items-center justify-center"
+      >
+        <XIcon />
+      </Link>
+      <Link
+        href="https://instagram.com/roomeyfinder"
+        target="_blank"
+        className="cursor-pointer w-[20px] h-[20px] flex items-center justify-center"
+      >
+        <InstagramIcon />
+      </Link>
+      <Link
+        href="https://www.linkedin.com/company/roomeyfinder"
+        target="_blank"
+        className="cursor-pointer w-[20px] h-[20px] flex items-center justify-center"
+      >
+        <LinkedInIcon />
+      </Link>
+      <Link
+        href="https://web.facebook.com/profile.php?id=61558566416460"
+        target="_blank"
+        className="cursor-pointer w-[20px] h-[20px] flex items-center justify-center"
+      >
+        <FacebookIcon />
+      </Link>
+    </>
   )
 }
