@@ -9,6 +9,44 @@ export const metadata: Metadata = {
   title: "Roomeyfinder Blog",
   description:
     "Discover expert tips, advice, and resources for finding the perfect roommate. From compatibility checks to lease agreements, our blog helps you navigate the roommate search with confidence. Join our community and make your living experience enjoyable!",
+  keywords:
+    "roommate, living situation, housing, accommodation, room, finder, room finder, roomie, roomey, room",
+  robots: "index, follow",
+  openGraph: {
+    title: "RoomeyFinder Blog",
+    description:
+      "Discover expert tips, advice, and resources for finding the perfect roommate. From compatibility checks to lease agreements, our blog helps you navigate the roommate search with confidence. Join our community and make your living experience enjoyable!",
+    url: "https://blog.roomeyfinder.com",
+    images: [
+      "https://pbs.twimg.com/profile_images/1742258368595595265/O5znt_ZT_400x400.jpg",
+    ],
+    type: "website",
+    ttl: 3000,
+    locale: "en-NG",
+    alternateLocale: "en-US",
+    countryName: "Nigeria",
+    determiner: "a",
+    emails: "exploitenomah@gmail.com",
+    siteName: "RoomeyFinder",
+    phoneNumbers: "09011288423",
+  },
+  twitter: {
+    title: "RoomeyFinder Blog",
+    description:
+      "Discover expert tips, advice, and resources for finding the perfect roommate. From compatibility checks to lease agreements, our blog helps you navigate the roommate search with confidence. Join our community and make your living experience enjoyable!",
+    site: "roomeyfinder",
+    images: [
+      "https://pbs.twimg.com/profile_images/1742258368595595265/O5znt_ZT_400x400.jpg",
+    ],
+    creator: "exploitenomah",
+    creatorId: "945750336823873537",
+  },
+  icons: [
+    {
+      url: "/logo.webp",
+      sizes: "64x64",
+    },
+  ],
 }
 const notion = new Client({
   auth: process.env.NOTION_API_KEY,
