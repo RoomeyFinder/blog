@@ -1,6 +1,7 @@
 import BlogPostItem from "./BlogPostItem"
 import backupImage from "../images/featured.webp"
 import { Client } from "@notionhq/client"
+import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints"
 
 const notion = new Client({
   auth: process.env.NOTION_API_KEY,
@@ -30,10 +31,23 @@ export async function getBlogPosts() {
   return response.results.map((page) => {
     return {
       id: page.id,
-      title: (page as any).properties?.["Content Title"]?.title?.[0].plain_text,
-      publishedAt: (page as any).properties["Published Date"].date?.start,
-      cover: (page as any).cover?.file?.url,
-      publicUrl: (page as any).public_url,
+      title: (
+        (page as PageObjectResponse).properties?.["Content Title"] as {
+          title: { plain_text: string }[]
+        }
+      )?.title?.[0]?.plain_text,
+      publishedAt: (
+        (page as PageObjectResponse).properties["Published Date"] as {
+          date: { start: string }
+        }
+      ).date?.start,
+      cover: (
+        (page as PageObjectResponse).cover as {
+          type: "file"
+          file: { url: string; expiry_time: string }
+        }
+      )?.file?.url,
+      publicUrl: (page as PageObjectResponse).public_url,
     }
   })
 }

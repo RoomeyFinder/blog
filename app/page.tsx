@@ -3,6 +3,7 @@ import FeaturedBlogPost from "./_components/FeaturedBlogPost"
 import featuredImage from "./images/featured.webp"
 import AllArticles from "./_components/AllArticles"
 import { Client } from "@notionhq/client"
+import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints"
 
 export const metadata: Metadata = {
   title: "Roomeyfinder Blog",
@@ -28,11 +29,23 @@ export async function getBlogPosts() {
     response.results.map((page) => {
       return {
         id: page.id,
-        title: (page as any).properties?.["Content Title"]?.title?.[0]
-          .plain_text,
-        publishedAt: (page as any).properties["Published Date"].date?.start,
-        cover: (page as any).cover?.file?.url,
-        publicUrl: (page as any).public_url,
+        title: (
+          (page as PageObjectResponse).properties?.["Content Title"] as {
+            title: { plain_text: string }[]
+          }
+        )?.title?.[0]?.plain_text,
+        publishedAt: (
+          (page as PageObjectResponse).properties["Published Date"] as {
+            date: { start: string }
+          }
+        ).date?.start,
+        cover: (
+          (page as PageObjectResponse).cover as {
+            type: "file"
+            file: { url: string; expiry_time: string }
+          }
+        )?.file?.url,
+        publicUrl: (page as PageObjectResponse).public_url,
       }
     })[0] || null
   )
@@ -47,7 +60,7 @@ type Post = {
   title: string
   publishedAt: string
   cover: string
-  publicUrl: string
+  publicUrl: string | null
 }
 export default async function Home() {
   const featuredPost: Partial<Post> | null = await getBlogPosts()

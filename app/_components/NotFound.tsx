@@ -6,7 +6,7 @@ export default function NotFound() {
     <div className="min-h-[80dvh] px-4 flex gap-2 text-center justify-center items-center flex-col">
       <Image src={notFound} alt="" />
       <p className="text-[22px] font-[600] mt-[-42px]">OOPS!</p>
-      <p className="text-[16px] max-w-[40ch]">We couldn't find that page</p>
+      <p className="text-[16px] max-w-[40ch]">We couldn&apos;t find that page</p>
     </div>
   )
 }

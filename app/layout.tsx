@@ -1,4 +1,4 @@
-import { Inter, Lora, Source_Sans_3 } from "next/font/google"
+import { Inter } from "next/font/google"
 import "./globals.css"
 import Footer from "./_components/Footer"
 import Header from "./_components/Header"
