@@ -7,7 +7,7 @@ import { Socials } from "./Footer"
 
 export default function Header() {
   return (
-    <header className="h-[80px] flex items-center justify-between border-b border-b-[#ddd] px-6 sm:px-12">
+    <header className="h-[80px] flex items-center justify-between max-w-[1500px] mx-auto border-b border-b-[#ddd] px-6 sm:px-12">
       <Link href="/" className="flex items-center gap-4">
         <Image
           width={logo.width}

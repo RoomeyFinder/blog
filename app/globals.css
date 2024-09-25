@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .featured-blog-post:hover h1,
+  .featured-blog-post:hover h2 {
+    text-decoration: underline;
   }
 }

@@ -1,62 +1,76 @@
 import { Metadata } from "next"
-import Image from "next/image"
+import FeaturedBlogPost from "./_components/FeaturedBlogPost"
+import featuredImage from "./images/featured.webp"
+import AllArticles from "./_components/AllArticles"
+import { Client } from "@notionhq/client"
 
 export const metadata: Metadata = {
   title: "Roomeyfinder Blog",
   description:
     "Discover expert tips, advice, and resources for finding the perfect roommate. From compatibility checks to lease agreements, our blog helps you navigate the roommate search with confidence. Join our community and make your living experience enjoyable!",
 }
+const notion = new Client({
+  auth: process.env.NOTION_API_KEY,
+})
 
-export default function Home() {
+export async function getBlogPosts() {
+  const databaseId = process.env.NOTION_DATABASE_ID || ""
+  const response = await notion.databases.query({
+    database_id: databaseId,
+    filter: {
+      property: "Featured",
+      checkbox: {
+        equals: true,
+      },
+    },
+  })
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
- 
+    response.results.map((page) => {
+      return {
+        id: page.id,
+        title: (page as any).properties?.["Content Title"]?.title?.[0]
+          .plain_text,
+        publishedAt: (page as any).properties["Published Date"].date?.start,
+        cover: (page as any).cover?.file?.url,
+        publicUrl: (page as any).public_url,
+      }
+    })[0] || null
+  )
+}
+type Post = {
+  id: string
+  isFeatured: boolean
+  author: string
+  statuus: string
+  KW: string
+  category: string
+  title: string
+  publishedAt: string
+  cover: string
+  publicUrl: string
+}
+export default async function Home() {
+  const featuredPost: Partial<Post> | null = await getBlogPosts()
+  return (
+    <div className="min-h-[80dvh] max-w-[1500px] mx-auto">
+      {featuredPost ? (
+        <>
+          <FeaturedBlogPost
+            imageSrc={featuredPost.cover || featuredImage}
+            imageAlt={""}
+            href={featuredPost.publicUrl || ""}
+            date={featuredPost.publishedAt}
+            heading={featuredPost.title}
+          />
+          <hr className="mt-[55px] mb-[35px] md:mt-[100px] md:mb-[50px] block border-[1.5px] border-[#ddd]/50 w-full" />
+        </>
+      ) : (
+        <></>
+      )}
+      <section className="mb-16 w-[90dvw] max-w-[1500px] mx-auto">
+        <h2 className="text-[22px] mb-[24px] font-[600]">All Articles</h2>
+        <AllArticles />
+      </section>
     </div>
   )
 }
