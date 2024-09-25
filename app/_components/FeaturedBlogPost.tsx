@@ -25,6 +25,8 @@ export default function FeaturedBlogPost({
             width={1000}
             height={1000}
             alt={imageAlt}
+            priority
+            fetchPriority="high"
             className="rounded-[12px] min-w-[280px] md:min-w-[400px] min-h-[300px] md:min-h-[300px] h-auto md:col-start-6 col-end-12 object-cover"
           />
           <div className="md:col-start-1 md:col-end-4 md:row-start-1 items-start flex flex-col justify-center">

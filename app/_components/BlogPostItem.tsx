@@ -29,7 +29,9 @@ export default function BlogPostItem({
             width={1000}
             height={350}
             alt={imageAlt}
+            fetchPriority="auto"
             loading="eager"
+            priority
             className="rounded-[12px] w-full h-auto object-cover"
           />
           <div className="items-start flex flex-col justify-center">
