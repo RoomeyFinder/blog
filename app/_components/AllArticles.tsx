@@ -61,7 +61,7 @@ type Post = {
   title: string
   publishedAt: string
   cover: string
-  publicUrl: string
+  publicUrl: string | null
 }
 export default async function AllArticles() {
   const posts: Partial<Post>[] = await getBlogPosts()
