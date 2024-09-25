@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     alternateLocale: "en-US",
     countryName: "Nigeria",
     determiner: "a",
-    emails: "exploitenomah@gmail.com",
+    emails: "support@roomeyfinder.com",
     siteName: "RoomeyFinder",
     phoneNumbers: "09011288423",
   },
